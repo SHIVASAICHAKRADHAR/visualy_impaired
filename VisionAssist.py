@@ -10,10 +10,10 @@ st.snow()
 st.title("🚀 🤖 AI Powered Solution for Assisting Visually Impaired Individuals 🖼️ 📝")
 ######################
 
-genai.configure(api_key = key)
+genai.configure(api_key = "AIzaSyAzV9EjQbrPEKFuxMYfWv-k9sWkHf0USwk")
 
 model = genai.GenerativeModel(model_name="gemini-1.5-flash")
-llm = GoogleGenerativeAI(model="gemini-1.5-flash", api_key=key)
+llm = GoogleGenerativeAI(model="gemini-1.5-flash", api_key = "AIzaSyAzV9EjQbrPEKFuxMYfWv-k9sWkHf0USwk")
 
 # Custom CSS for better styling
 st.markdown(
