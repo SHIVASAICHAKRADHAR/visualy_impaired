@@ -64,7 +64,25 @@ st.markdown(
 )
 
 # Header Section
-st.markdown('<div class="subtitle">AI-Powered Assistance for Visually Impaired Individuals</div>', unsafe_allow_html=True)
+st.markdown("""
+    <style>
+        .subtitle {
+            font-size: 24px;
+            font-weight: bold;
+            color: #ffffff; /* White color for text */
+            background: linear-gradient(45deg, #00BFAE, #0077B6); /* Green to Blue */
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+        }
+    </style>
+    <div class="subtitle">
+        🌐 AI-Powered Solutions for Empowering Visually Impaired Individuals 🤖
+    </div>
+""", unsafe_allow_html=True)
+
 
 # Sidebar with Features and Instructions
 st.sidebar.markdown(
