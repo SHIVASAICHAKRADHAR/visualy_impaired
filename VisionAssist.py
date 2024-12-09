@@ -28,39 +28,23 @@ st.markdown(
         font-size: 50px;
         font-weight: 800;
         text-align: center;
-        color: #FFD700;
+        color: #1f77b4;
         margin-bottom: 10px;
     }
     .subtitle {
-        font-size: 22px;
+        font-size: 20px;
         text-align: center;
-        color: #4CAF50;
+        color: #555;
     }
     .feature-header {
-        font-size: 28px;
+        font-size: 24px;
         font-weight: bold;
         color: #333;
     }
-    .footer-text {
+    footer {
         text-align: center;
-        color: #888;
-        font-size: 16px;
-    }
-    .description-text {
-        font-size: 18px;
-        color: #333;
-        line-height: 1.5;
-    }
-    .feature-button {
-        background-color: #4CAF50;
-        color: white;
-        padding: 15px;
-        border-radius: 5px;
-        font-size: 18px;
-        margin: 10px;
-    }
-    .feature-button:hover {
-        background-color: #45a049;
+        color: #aaa;
+        font-size: 14px;
     }
     </style>
     """,
@@ -68,33 +52,27 @@ st.markdown(
 )
 
 # Header Section
-st.markdown('<div class="subtitle">Empowering Visually Impaired with AI Assistance</div>', unsafe_allow_html=True)
-
+st.markdown('<div class="subtitle">AI-Powered Assistance for Visually Impaired Individuals</div>', unsafe_allow_html=True)
 
 # Sidebar with Features and Instructions
-st.sidebar.image(
-    r"Pics/vision_img.jpg",
-    width=200,
-)
+st.sidebar.image(r"Pics/vision img.jpeg", width=200)
 
 st.sidebar.markdown(
     """
-    ### How This Works:
-    - 🚶‍♀️ **Describe Scene**: Get a detailed description of your surroundings.
-    - 🛑 **Detect Objects**: Identify obstacles or important items in your environment.
-    - 🔊 **Text-to-Speech**: Listen to AI descriptions and details about your surroundings.
-    - 🧑‍💼 **Personal Assistance**: Recognize text and objects for everyday help.
-    - 📝 **Suggested Tasks**: Get suggested tasks based on your current environment.
+    ### Features:
+    - 👩🏻‍🏫 **Describe Scene**: Describe the image in detailed using AI.
+    - 🔍 **Detect the Scene in depth**: Detect Objects and Obstacles within the image.
+    - 🔊 **Text-to-Speech**: Listen to the text based on which feature user selected.
+    - 👩🏻‍💼 **Personalized Assistance**: identify items or objects and text available on the image to read and display.
+    - 📋 **Get Tasks**: Get tasks based on given image location.
     
-    ### Steps to Use:
-    1. Upload an image of your surroundings.
-    2. Choose a feature to start interacting with the AI.
-    3. Listen to the audio feedback or read the descriptions.
+    ### How It Works:
+    1. Upload an image.
+    2. Select a feature to interact with the AI.
     """
 )
 
-st.sidebar.success("Upload an image to start your experience!")
-
+st.sidebar.success("Upload an image to start!")
 
 # Functions
 def task(prompt, image_data):
@@ -107,7 +85,7 @@ def assistance(prompt, data):
     input_text = f"{prompt}\nExtracted text: {data}"
     response = llm.generate(prompts=[input_text])
     if response.generations and len(response.generations[0]) > 0:
-        data = response.generations[0][0].text 
+        data = response.generations[0][0].text
         return data
 
 def text_to_speech(text):
@@ -139,100 +117,95 @@ def prepare_image_data(uploaded_file):
     else:
         raise ValueError("No file uploaded.")
 
-
 # Main Section
-uploaded_file = st.file_uploader("Please upload an image of your surroundings (JPG, JPEG, PNG)", type=["jpg", "jpeg", "png"])
+uploaded_file = st.file_uploader("Drag and drop or browse an image (JPG, JPEG, PNG)", type=["jpg", "jpeg", "png"])
 
 if uploaded_file:
     image = Image.open(uploaded_file)
     st.image(image, caption="Uploaded Image", use_container_width=True)
 
-    st.markdown("<h3 class='feature-header'>✨ AI Features to Enhance Your Experience</h3>", unsafe_allow_html=True)
+    st.markdown("<h3 class='feature-header'>⚙️ Features</h3>", unsafe_allow_html=True)
     col1, col2, col3, col4 = st.columns(4)
 
-    if col1.button("🖼️ Describe Scene", key="1"):
+    if col1.button("👩🏻‍🏫 Illustrate"):
         with st.spinner("Analyzing the scene..."):
             try:
                 image_data = prepare_image_data(uploaded_file)
                 response = describe(
-                    "Describe the scene in the uploaded image in detail to guide the user with their surroundings.", image_data
-                )
-                text = f"Scene Description: {response}"
+                    "Describe the scene in the uploaded image in detail, offering insights to enhance user thoughts.", image_data
+                    )
+                text = f"Describe the Scene: {response}"
                 audio_file = text_to_speech(text)
                 with open(audio_file, "rb") as file:
                     st.audio(file.read(), format="audio/mp3")
                 os.remove(audio_file)
-                st.markdown("<h3 class='feature-header'>🖼️ Scene Description</h3>", unsafe_allow_html=True)
+                st.markdown("<h3 class='feature-header'>👩🏻‍🏫 Scene Description</h3>", unsafe_allow_html=True)
                 st.write(response)
 
             except Exception as e:
                 st.error(f"Error: {str(e)}")
 
-
-    if col2.button("🛑 Detect Obstacles", key="2"):
-        with st.spinner("Detecting objects and obstacles..."):
+    if col2.button("🔍 Detect"):
+        with st.spinner("Detecting the scene in depth..."):
             try:
                 image_data = prepare_image_data(uploaded_file)
                 response = detect(
-                    "Identify obstacles or objects in the image and highlight them for better awareness and safety.", image_data
-                )
-                text = f"Obstacle Detection: {response}"
+                    "Identify objects and obstacles within the image and highlight them, offering insights to enhance user safety and situational awareness.", image_data
+                    )
+                text = f"Detecting the Scene in depth: {response}"
                 audio_file = text_to_speech(text)
                 with open(audio_file, "rb") as file:
                     st.audio(file.read(), format="audio/mp3")
                 os.remove(audio_file)
-                st.markdown("<h3 class='feature-header'>🛑 Detect Obstacles</h3>", unsafe_allow_html=True)
+                st.markdown("<h3 class='feature-header'>🔍 Detecting the Scene for any objects and obstacles</h3>", unsafe_allow_html=True)
                 st.write(response)
 
             except Exception as e:
                 st.error(f"Error: {str(e)}")
 
-
-    if col3.button("🧑‍💼 Personalized Assistance", key="3"):
-        with st.spinner("Identifying objects and labels..."):
+    if col3.button("👩🏻‍💼 PA"):
+        with st.spinner("Working on the scene..."):
             try:
                 image_data = prepare_image_data(uploaded_file)
                 data = describe(
-                    "Describe the scene in the uploaded image in detail, offering insights for better user understanding.", image_data
-                )
-                prompt = f"Identify objects, text, and offer personalized assistance based on the image."
+                    "Describe the scene in the uploaded image in detail, offering insights to enhance user thoughts.", image_data
+                    )
+                prompt = f"Identifying Items, text and display them."
                 response = assistance(prompt, data)
-                text = f"Personalized Assistance: {response}"
+                text = f"Acts as Personalized Assistance: {response}"
                 audio_file = text_to_speech(text)
                 with open(audio_file, "rb") as file:
                     st.audio(file.read(), format="audio/mp3")
                 os.remove(audio_file)
-                st.markdown("<h3 class='feature-header'>🧑‍💼 Personalized Assistance</h3>", unsafe_allow_html=True)
+                st.markdown("<h3 class='feature-header'>👩🏻‍💼 Personalized Assistance</h3>", unsafe_allow_html=True)
                 st.write(response)
 
             except Exception as e:
                 st.error(f"Error: {str(e)}")
 
-
-    if col4.button("📝 Suggested Tasks", key="4"):
-        with st.spinner("Analyzing tasks based on the scene..."):
+    if col4.button("📋 Tasks"):
+        with st.spinner("Analyzing the scene for tasks..."):
             try:
                 image_data = prepare_image_data(uploaded_file)
                 response = task(
-                    "Suggest relevant tasks based on the environment and location visible in the image.", image_data
-                )
-                text = f"Suggested Tasks: {response}"
+                    "Suggest best and top 10 tasks a user can do based on the location of the image scene.", image_data
+                    )
+                text = f"Suggesting the few tasks user can do based on given image scene: {response}"
                 audio_file = text_to_speech(text)
                 with open(audio_file, "rb") as file:
                     st.audio(file.read(), format="audio/mp3")
                 os.remove(audio_file)
-                st.markdown("<h3 class='feature-header'>📝 Suggested Tasks</h3>", unsafe_allow_html=True)
+                st.markdown("<h3 class='feature-header'>📋 Tasks based on scene</h3>", unsafe_allow_html=True)
                 st.write(response)
 
             except Exception as e:
                 st.error(f"Error: {str(e)}")
 
-
-# Footer
+# Footer with a user-friendly message
 st.markdown(
     """
-    <footer class="footer-text">
-        Empowering You with AI-Driven Assistance | Created with Care Using Streamlit
+    <footer>
+        Powered by <strong>Google Gemini API</strong> | Created for Accessibility | Built with ❤️ using Streamlit
     </footer>
     """,
     unsafe_allow_html=True,
