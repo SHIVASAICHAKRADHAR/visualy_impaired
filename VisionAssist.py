@@ -114,11 +114,11 @@ st.sidebar.markdown("""
     <div class="sidebar-box">
         <div class="sidebar-title">🚀 Key Features</div>
         <div class="sidebar-text">
-            - 🖼️ **Scene Description**: Provides a comprehensive AI-generated description of the uploaded image.<br>
-            - 🔍 **Advanced Scene Detection**: Identifies key objects and obstacles within the image.<br>
-            - 🎧 **Text-to-Speech**: Converts the selected text into speech for a hands-free experience.<br>
-            - 📝 **Personalized Assistance**: Detects and reads out items, objects, and text within the image.<br>
-            - 📌 **Task Recommendations**: Suggests relevant tasks based on the context and location of the image.<br>
+            - 🖼️ <strong>Scene Description</strong>: Provides a comprehensive AI-generated description of the uploaded image.<br>
+            - 🔍 <strong>Advanced Scene Detection</strong>: Identifies key objects and obstacles within the image.<br>
+            - 🎧 <strong>Text-to-Speech</strong>: Converts the selected text into speech for a hands-free experience.<br>
+            - 📝 <strong>Personalized Assistance</strong>: Detects and reads out items, objects, and text within the image.<br>
+            - 📌 <strong>Task Recommendations</strong>: Suggests relevant tasks based on the context and location of the image.<br>
         </div>
         <div class="sidebar-title">🛠️ How It Works</div>
         <div class="sidebar-text">
@@ -127,6 +127,7 @@ st.sidebar.markdown("""
         </div>
     </div>
 """, unsafe_allow_html=True)
+
 
 
 st.sidebar.success("**Upload an image to start!**")
