@@ -142,8 +142,25 @@ st.sidebar.markdown("""
 
 
 
+st.markdown("""
+    <style>
+        .success-message {
+            background-color: #4CAF50; /* Green background */
+            color: white;
+            padding: 15px;
+            border-radius: 8px;
+            font-size: 18px;
+            font-weight: bold;
+            text-align: center;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+""", unsafe_allow_html=True)
 
-st.sidebar.success("**Upload an image to start!**")
+
+# Apply the custom styling to the success message
+st.sidebar.markdown('<div class="success-message">**Upload an image to start!**</div>', unsafe_allow_html=True)
+
 
 # Functions
 def task(prompt, image_data):
