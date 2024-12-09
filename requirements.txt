@@ -5,3 +5,4 @@ Pillow
 gtts
 requests
 pyttsx3
+pywin32
