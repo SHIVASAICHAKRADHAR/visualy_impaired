@@ -5,10 +5,10 @@ from langchain_google_genai import GoogleGenerativeAI
 import os
 from gtts import gTTS
 
-######################
-st.snow()
-st.title("🚀 🤖 AI Powered Solution for Assisting Visually Impaired Individuals 🖼️ 📝")
-######################
+
+st.ballons()
+st.title("🚀 🤖 Chakradhar's AI Powered Solution for Assisting Visually Impaired Individuals 🖼️ 📝")
+
 
 genai.configure(api_key = "AIzaSyAzV9EjQbrPEKFuxMYfWv-k9sWkHf0USwk")
 
@@ -111,7 +111,7 @@ def prepare_image_data(uploaded_file):
         raise ValueError("No file uploaded.")
 
 # Main Section
-uploaded_file = st.file_uploader("Drag and drop or browse an image (JPG, JPEG, PNG)", type=["jpg", "jpeg", "png"])
+uploaded_file = st.file_uploader("Drag and drop or browse an image (JPG, JPEG, PNG,HEIC)", type=["jpg", "jpeg", "png","heic"])
 
 if uploaded_file:
     image = Image.open(uploaded_file)
@@ -198,7 +198,7 @@ if uploaded_file:
 st.markdown(
     """
     <footer>
-        Powered by <strong>Google Gemini API</strong> | Created for Accessibility | Built with ❤️ using Streamlit
+        Made by <strong> Shiva Sai Chakradhar </strong> | Created for Accessibility | Built with 💝 for Visual Impaired 🧍🏻
     </footer>
     """,
     unsafe_allow_html=True,
