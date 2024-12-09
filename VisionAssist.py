@@ -206,89 +206,117 @@ def prepare_image_data(uploaded_file):
         raise ValueError("No file uploaded.")
 
 # Main Section
-uploaded_file = st.file_uploader("Drag and drop or browse an image (JPG, JPEG, PNG,HEIC)", type=["jpg", "jpeg", "png", "heic"])
+st.markdown("""
+    <style>
+        .feature-header {
+            font-size: 20px;
+            color: #4CAF50;
+            text-align: center;
+            margin-top: 10px;
+        }
+        .button-style {
+            background-color: #FF9800;  /* Button Color - Orange */
+            color: white;
+            padding: 15px 25px;
+            border-radius: 8px;
+            font-weight: bold;
+            font-size: 16px;
+            width: 100%;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+        }
+        .button-style:hover {
+            background-color: #F57C00;  /* Darker orange on hover */
+        }
+    </style>
+""", unsafe_allow_html=True)
 
-st.snow()
+# File upload section
+uploaded_file = st.file_uploader("Upload an image", type=["jpg", "jpeg", "png", "gif", "bmp", "mp4"])
+
 if uploaded_file:
     image = Image.open(uploaded_file)
     st.image(image, caption="Uploaded Image", use_container_width=True)
 
     st.markdown("<h3 class='feature-header'> 🚂 Features </h3>", unsafe_allow_html=True)
+
     col1, col2, col3, col4 = st.columns(4)
 
-    if col1.button("👩🏻‍🏫 **Illustrate**"):
+    # Button for Scene Description
+    if col1.button("🖼️ **Illustrate Scene**", key="1", help="Describe the scene in detail and offer insights"):
         with st.spinner("Analyzing the scene..."):
             try:
                 image_data = prepare_image_data(uploaded_file)
                 response = describe(
-                    "Describe the scene in the uploaded image in detail, offering insights to enhance user thoughts.", image_data
-                    )
-                text = f"Describe the Scene: {response}"
+                    "Describe the scene in the uploaded image in detail, offering insights to enhance user thoughts", image_data
+                )
+                text = f"Scene Description: {response}"
                 audio_file = text_to_speech(text)
                 with open(audio_file, "rb") as file:
                     st.audio(file.read(), format="audio/mp3")
                 os.remove(audio_file)
-                st.markdown("<h3 class='feature-header'>👩🏻‍🏫 Scene Description</h3>", unsafe_allow_html=True)
+                st.markdown("<h3 class='feature-header'>🖼️ Scene Description</h3>", unsafe_allow_html=True)
                 st.write(response)
-
             except Exception as e:
                 st.error(f"Error: {str(e)}")
 
-    if col2.button("🔍 Detect"):
+    # Button for Scene Detection
+    if col2.button("🔍 **Detect Scene**", key="2", help="Detect objects and obstacles in the image"):
         with st.spinner("Detecting the scene in depth..."):
             try:
                 image_data = prepare_image_data(uploaded_file)
                 response = detect(
-                    "Identify objects and obstacles within the image and highlight them, offering insights to enhance user safety and situational awareness.", image_data
-                    )
-                text = f"Detecting the Scene in depth: {response}"
+                    "Identify objects and obstacles within the image and highlight them, offering insights to enhance user safety and situational awareness", image_data
+                )
+                text = f"Detecting the Scene: {response}"
                 audio_file = text_to_speech(text)
                 with open(audio_file, "rb") as file:
                     st.audio(file.read(), format="audio/mp3")
                 os.remove(audio_file)
-                st.markdown("<h3 class='feature-header'>🔍 Detecting the Scene for any objects and obstacles</h3>", unsafe_allow_html=True)
+                st.markdown("<h3 class='feature-header'>🔍 Detecting the Scene</h3>", unsafe_allow_html=True)
                 st.write(response)
-
             except Exception as e:
                 st.error(f"Error: {str(e)}")
 
-    if col3.button("👩🏻‍💼 PA"):
+    # Button for Personalized Assistance
+    if col3.button("🧑🏻‍💼 **Personalized Assistance**", key="3", help="Identify items and text in the image"):
         with st.spinner("Working on the scene..."):
             try:
                 image_data = prepare_image_data(uploaded_file)
                 data = describe(
-                    "Describe the scene in the uploaded image in detail, offering insights to enhance user thoughts.", image_data
-                    )
-                prompt = f"Identifying Items, text and display them."
+                    "Describe the scene in the uploaded image in detail, offering insights to enhance user thoughts", image_data
+                )
+                prompt = "Identifying items and text within the image."
                 response = assistance(prompt, data)
-                text = f"Acts as Personalized Assistance: {response}"
+                text = f"Personalized Assistance: {response}"
                 audio_file = text_to_speech(text)
                 with open(audio_file, "rb") as file:
                     st.audio(file.read(), format="audio/mp3")
                 os.remove(audio_file)
-                st.markdown("<h3 class='feature-header'>👩🏻‍💼 Personalized Assistance</h3>", unsafe_allow_html=True)
+                st.markdown("<h3 class='feature-header'>🧑🏻‍💼 Personalized Assistance</h3>", unsafe_allow_html=True)
                 st.write(response)
-
             except Exception as e:
                 st.error(f"Error: {str(e)}")
 
-    if col4.button("📋 Tasks"):
-        with st.spinner("Analyzing the scene for tasks..."):
+    # Button for Task Suggestions
+    if col4.button("📝 **Task Suggestions**", key="4", help="Suggest tasks based on the image context"):
+        with st.spinner("Analyzing tasks..."):
             try:
                 image_data = prepare_image_data(uploaded_file)
                 response = task(
-                    "Suggest best and top 10 tasks a user can do based on the location of the image scene.", image_data
-                    )
-                text = f"Suggesting the few tasks user can do based on given image scene: {response}"
+                    "Suggest the best tasks a user can do based on the location of the image scene", image_data
+                )
+                text = f"Task Suggestions: {response}"
                 audio_file = text_to_speech(text)
                 with open(audio_file, "rb") as file:
                     st.audio(file.read(), format="audio/mp3")
                 os.remove(audio_file)
-                st.markdown("<h3 class='feature-header'>📋 Tasks based on scene</h3>", unsafe_allow_html=True)
+                st.markdown("<h3 class='feature-header'>📝 Suggested Tasks</h3>", unsafe_allow_html=True)
                 st.write(response)
-
             except Exception as e:
                 st.error(f"Error: {str(e)}")
+
 
 # Footer with a user-friendly message
 st.markdown(
