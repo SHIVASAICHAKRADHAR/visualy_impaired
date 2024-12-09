@@ -233,7 +233,7 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 # File upload section
-uploaded_file = st.file_uploader("Upload an image", type=["jpg", "jpeg", "png", "gif", "bmp", "mp4"])
+uploaded_file = st.file_uploader("Upload an image", type=["jpg", "jpeg", "png"])
 
 if uploaded_file:
     image = Image.open(uploaded_file)
