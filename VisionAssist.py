@@ -53,11 +53,11 @@ st.markdown('<div class="subtitle">AI-Powered Assistance for Visually Impaired I
 st.sidebar.markdown(
     """
     ### Features:
-    - 👩🏻‍🏫 **Describe Scene**: Describe the image in detailed using AI.
-    - 🔍 **Detect the Scene in depth**: Detect Objects and Obstacles within the image.
-    - 🔊 **Text-to-Speech**: Listen to the text based on which feature user selected.
-    - 👩🏻‍💼 **Personalized Assistance**: identify items or objects and text available on the image to read and display.
-    - 📋 **Get Tasks**: Get tasks based on given image location.
+    - 🖼️  **Scene Description**: Provide a detailed description of the image using AI.
+    - 🔍 **In-depth Scene Detection**: Identify objects and obstacles present within the image.
+    - 🎧 **Text-to-Speech**: Listen to a spoken version of the text based on your selected feature.
+    - 📝 **Personalized Assistance**: Recognize items, objects, and any text in the image and display or read them out loud.
+    - 📌 Task Suggestions: Get task recommendations based on the location or context of the image.
     
     ### How It Works:
     1. Upload an image.
@@ -65,7 +65,7 @@ st.sidebar.markdown(
     """
 )
 
-st.sidebar.success("Upload an image to start!")
+st.sidebar.success("**Upload an image to start!**")
 
 # Functions
 def task(prompt, image_data):
