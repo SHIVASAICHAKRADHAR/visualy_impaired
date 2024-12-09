@@ -4,7 +4,6 @@ from PIL import Image
 from langchain_google_genai import GoogleGenerativeAI
 import os
 from gtts import gTTS
-import pyttsx3
 
 
 st.balloons()
@@ -178,26 +177,15 @@ def assistance(prompt, data):
         return data
 
 def text_to_speech(text):
-    """Function to convert text to speech using a male voice and save it as a file."""
-    # Initialize the TTS engine
-    engine = pyttsx3.init()
+    """Function to convert text to speech and save it as a file."""
+    # Remove any colons from the text
+    cleaned_text = text.replace(":", "")
     
-    # Get available voices
-    voices = engine.getProperty('voices')
-    
-    # Set the voice to male (typically the first male voice in the list)
-    engine.setProperty('voice', voices[0].id)  # You can choose voices[1] for a different male voice, if available
-    
-    # Set speech rate (optional)
-    engine.setProperty('rate', 150)  # Adjust rate for natural sounding speech
-    
-    # Save the speech to an audio file
+    # Convert the cleaned text to speech
     audio_file = "output_1.mp3"
-    engine.save_to_file(text, audio_file)
+    tts = gTTS(text=cleaned_text, lang="en", slow=False)
+    tts.save(audio_file)
     
-    # Run the engine to save the file
-    engine.runAndWait()
-
     return audio_file
 
 
