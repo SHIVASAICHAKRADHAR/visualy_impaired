@@ -88,7 +88,7 @@ st.markdown("""
 st.markdown("""
     <style>
         .sidebar-box {
-            background: linear-gradient(45deg, #0066cc, #3399ff); /* Gradient background */
+            background: linear-gradient(45deg, #6a5acd, #8a2be2); /* Gradient background (blue to purple) */
             padding: 20px;
             border-radius: 10px;
             box-shadow: 4px 4px 15px rgba(0, 0, 0, 0.1);
@@ -106,6 +106,16 @@ st.markdown("""
             color: #f1f1f1;
             line-height: 1.6;
         }
+        ul {
+            list-style-type: disc;
+            padding-left: 20px;
+        }
+        li {
+            margin-bottom: 8px;
+        }
+        .sidebar-text strong {
+            color: #ffcc00; /* Golden color for bold items */
+        }
     </style>
 """, unsafe_allow_html=True)
 
@@ -114,11 +124,13 @@ st.sidebar.markdown("""
     <div class="sidebar-box">
         <div class="sidebar-title">🚀 Key Features</div>
         <div class="sidebar-text">
-            - 🖼️ <strong>Scene Description</strong>: Provides a comprehensive AI-generated description of the uploaded image.<br>
-            - 🔍 <strong>Advanced Scene Detection</strong>: Identifies key objects and obstacles within the image.<br>
-            - 🎧 <strong>Text-to-Speech</strong>: Converts the selected text into speech for a hands-free experience.<br>
-            - 📝 <strong>Personalized Assistance</strong>: Detects and reads out items, objects, and text within the image.<br>
-            - 📌 <strong>Task Recommendations</strong>: Suggests relevant tasks based on the context and location of the image.<br>
+            <ul>
+                <li>🖼️ <strong>Scene Description</strong>: Provides a comprehensive AI-generated description of the uploaded image.</li>
+                <li>🔍 <strong>Advanced Scene Detection</strong>: Identifies key objects and obstacles within the image.</li>
+                <li>🎧 <strong>Text-to-Speech</strong>: Converts the selected text into speech for a hands-free experience.</li>
+                <li>📝 <strong>Personalized Assistance</strong>: Detects and reads out items, objects, and text within the image.</li>
+                <li>📌 <strong>Task Recommendations</strong>: Suggests relevant tasks based on the context and location of the image.</li>
+            </ul>
         </div>
         <div class="sidebar-title">🛠️ How It Works</div>
         <div class="sidebar-text">
@@ -127,6 +139,7 @@ st.sidebar.markdown("""
         </div>
     </div>
 """, unsafe_allow_html=True)
+
 
 
 
