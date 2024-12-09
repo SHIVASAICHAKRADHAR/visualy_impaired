@@ -159,7 +159,7 @@ st.markdown("""
 
 
 # Apply the custom styling to the success message
-st.sidebar.markdown('<div class="success-message">**Upload an image to start!**</div>', unsafe_allow_html=True)
+st.sidebar.markdown('<div class="success-message">  <strong>Upload an Image to View </strong> </div>', unsafe_allow_html=True)
 
 
 # Functions
