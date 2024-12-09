@@ -4,4 +4,3 @@ pyttsx3
 pytesseract
 google-generativeai
 langchain-google-genai
-eSpeak
