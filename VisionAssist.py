@@ -7,7 +7,24 @@ from gtts import gTTS
 
 
 st.balloons()
-st.title("🚀 🤖 Chakradhar's AI Powered Solution for Assisting Visually Impaired Individuals 🖼️ 📝")
+st.markdown("""
+    <style>
+        .title {
+            font-size: 36px;
+            font-weight: bold;
+            color: #0044cc; /* Blue color */
+            background-color: #f0f0f0; /* Light grey background */
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+        }
+    </style>
+    <div class="title">
+        🌟 Empowering Vision: Chakradhar's AI-Driven Solution for Visually Impaired Assistance 🤖 📝
+    </div>
+""", unsafe_allow_html=True )
 
 
 genai.configure(api_key = "AIzaSyAzV9EjQbrPEKFuxMYfWv-k9sWkHf0USwk")
