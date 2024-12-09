@@ -85,20 +85,49 @@ st.markdown("""
 
 
 # Sidebar with Features and Instructions
-st.sidebar.markdown(
-    """
-    ### Features:
-    - 🖼️  **Scene Description**: Provide a detailed description of the image using AI.
-    - 🔍 **In-depth Scene Detection**: Identify objects and obstacles present within the image.
-    - 🎧 **Text-to-Speech**: Listen to a spoken version of the text based on your selected feature.
-    - 📝 **Personalized Assistance**: Recognize items, objects, and any text in the image and display or read them out loud.
-    - 📌 Task Suggestions: Get task recommendations based on the location or context of the image.
-    
-    ### How It Works:
-    1. Upload an image.
-    2. Select a feature to interact with the AI.
-    """
-)
+st.markdown("""
+    <style>
+        .sidebar-box {
+            background: linear-gradient(45deg, #0066cc, #3399ff); /* Gradient background */
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 4px 4px 15px rgba(0, 0, 0, 0.1);
+            color: #ffffff;
+            margin-bottom: 20px;
+        }
+        .sidebar-title {
+            font-size: 24px;
+            font-weight: bold;
+            color: #ffffff;
+            margin-bottom: 12px;
+        }
+        .sidebar-text {
+            font-size: 16px;
+            color: #f1f1f1;
+            line-height: 1.6;
+        }
+    </style>
+""", unsafe_allow_html=True)
+
+# Sidebar content with a box and shaded background
+st.sidebar.markdown("""
+    <div class="sidebar-box">
+        <div class="sidebar-title">🚀 Key Features</div>
+        <div class="sidebar-text">
+            - 🖼️ **Scene Description**: Provides a comprehensive AI-generated description of the uploaded image.<br>
+            - 🔍 **Advanced Scene Detection**: Identifies key objects and obstacles within the image.<br>
+            - 🎧 **Text-to-Speech**: Converts the selected text into speech for a hands-free experience.<br>
+            - 📝 **Personalized Assistance**: Detects and reads out items, objects, and text within the image.<br>
+            - 📌 **Task Recommendations**: Suggests relevant tasks based on the context and location of the image.<br>
+        </div>
+        <div class="sidebar-title">🛠️ How It Works</div>
+        <div class="sidebar-text">
+            1. Upload your image.<br>
+            2. Choose a feature to interact with and receive assistance from the AI.<br>
+        </div>
+    </div>
+""", unsafe_allow_html=True)
+
 
 st.sidebar.success("**Upload an image to start!**")
 
