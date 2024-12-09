@@ -8,6 +8,9 @@ from gtts import gTTS
 
 ######################
 st.snow()
+
+st.image("Pics/img.png")
+
 st.title("🌟 Accessible AI for Visually Impaired Individuals 🚀")
 
 # Reading the API Key and Configuring the API Key
