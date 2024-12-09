@@ -1,3 +1,4 @@
+AIzaSyAzV9EjQbrPEKFuxMYfWv-k9sWkHf0USwk
 import streamlit as st
 import google.generativeai as genai
 from PIL import Image
@@ -5,19 +6,17 @@ from langchain_google_genai import GoogleGenerativeAI
 import os
 from gtts import gTTS
 
-
 ######################
 st.snow()
-st.title("🌟 Accessible AI for Visually Impaired Individuals 🚀")
+st.title("🚀 🤖 AI Powered Solution for Assisting Visually Impaired Individuals 🖼️ 📝")
+######################
 
-# Reading the API Key and Configuring the API Key
-
-genai.configure(api_key="AIzaSyAzV9EjQbrPEKFuxMYfWv-k9sWkHf0USwk")
+genai.configure(api_key = key)
 
 model = genai.GenerativeModel(model_name="gemini-1.5-flash")
+llm = GoogleGenerativeAI(model="gemini-1.5-flash", api_key=key)
 
-llm = GoogleGenerativeAI(model="gemini-1.5-flash", api_key="AIzaSyAzV9EjQbrPEKFuxMYfWv-k9sWkHf0USwk")
-
+# Custom CSS for better styling
 st.markdown(
     """
     <style>
@@ -52,8 +51,6 @@ st.markdown(
 st.markdown('<div class="subtitle">AI-Powered Assistance for Visually Impaired Individuals</div>', unsafe_allow_html=True)
 
 # Sidebar with Features and Instructions
-st.sidebar.image(r"Pics/vision img.jpeg", width=200)
-
 st.sidebar.markdown(
     """
     ### Features:
