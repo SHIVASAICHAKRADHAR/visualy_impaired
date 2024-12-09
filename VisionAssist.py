@@ -111,16 +111,17 @@ def prepare_image_data(uploaded_file):
         raise ValueError("No file uploaded.")
 
 # Main Section
-uploaded_file = st.file_uploader("Drag and drop or browse an image (JPG, JPEG, PNG,HEIC)", type=["jpg", "jpeg", "png","heic"])
+uploaded_file = st.file_uploader("Drag and drop or browse an image (JPG, JPEG, PNG,HEIC)", type=["jpg", "jpeg", "png", "heic"])
 
+st.snow()
 if uploaded_file:
     image = Image.open(uploaded_file)
     st.image(image, caption="Uploaded Image", use_container_width=True)
 
-    st.markdown("<h3 class='feature-header'>⚙️ Features</h3>", unsafe_allow_html=True)
+    st.markdown("<h3 class='feature-header'> 🚂 Features </h3>", unsafe_allow_html=True)
     col1, col2, col3, col4 = st.columns(4)
 
-    if col1.button("👩🏻‍🏫 Illustrate"):
+    if col1.button("👩🏻‍🏫 **Illustrate**"):
         with st.spinner("Analyzing the scene..."):
             try:
                 image_data = prepare_image_data(uploaded_file)
