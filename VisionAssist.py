@@ -6,7 +6,7 @@ import os
 from gtts import gTTS
 
 
-st.ballons()
+st.balloons()
 st.title("🚀 🤖 Chakradhar's AI Powered Solution for Assisting Visually Impaired Individuals 🖼️ 📝")
 
 
