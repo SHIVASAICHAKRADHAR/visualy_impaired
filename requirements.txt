@@ -4,3 +4,4 @@ langchain-google-genai
 Pillow
 gtts
 requests
+pyttsx3
