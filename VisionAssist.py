@@ -177,11 +177,17 @@ def assistance(prompt, data):
         return data
 
 def text_to_speech(text):
-    """Function to convert text to speech and save it as a file"""
+    """Function to convert text to speech and save it as a file."""
+    # Remove any colons from the text
+    cleaned_text = text.replace(":", "")
+    
+    # Convert the cleaned text to speech
     audio_file = "output_1.mp3"
-    tts = gTTS(text=text, lang="en", slow=False)
+    tts = gTTS(text=cleaned_text, lang="en", slow=False)
     tts.save(audio_file)
+    
     return audio_file
+
 
 def detect(prompt, image_data):
     """Detects Objects and Obstacles from scene using Google Generative AI."""
