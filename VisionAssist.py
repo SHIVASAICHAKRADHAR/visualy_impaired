@@ -1,180 +1,235 @@
 import streamlit as st
-from PIL import Image
-import pyttsx3
-import os
-import pytesseract  
 import google.generativeai as genai
+from PIL import Image
 from langchain_google_genai import GoogleGenerativeAI
-
-# Set Tesseract OCR path
-pytesseract.pytesseract.tesseract_cmd = r'C:\Program Files\Tesseract-OCR\tesseract.exe'
-
-# Initialize Google Generative AI with API Key
-GEMINI_API_KEY = "Your API Key"  # Replace with your valid API key
-os.environ["GOOGLE_API_KEY"] = GEMINI_API_KEY
-
-llm = GoogleGenerativeAI(model="gemini-1.5-pro", api_key=GEMINI_API_KEY)
-
-# Initialize Text-to-Speech engine
-engine = pyttsx3.init()
+import os
+from gtts import gTTS
 
 
+######################
+st.snow()
+st.title("🌟 Accessible AI for Visually Impaired Individuals 🚀")
 
+# Reading the API Key and Configuring the API Key
 
- #st.set_page_config(page_title="VisionAssist", layout="wide", page_icon="🧠")
+genai.configure(api_key="AIzaSyAzV9EjQbrPEKFuxMYfWv-k9sWkHf0USwk")
+
+model = genai.GenerativeModel(model_name="gemini-1.5-flash")
+
+llm = GoogleGenerativeAI(model="gemini-1.5-flash", api_key=key)
+
 st.markdown(
     """
     <style>
-     .main-title {
-        font-size: 48px;
-         font-weight: bold;
-         text-align: center;
-         color: #0662f6;
-         margin-top: -20px;
-     }
-    .subtitle {
-        font-size: 18px;
-        color: #555;
+    .main-title {
+        font-size: 50px;
+        font-weight: 800;
         text-align: center;
-        margin-bottom: 20px;
+        color: #FFD700;
+        margin-bottom: 10px;
+    }
+    .subtitle {
+        font-size: 22px;
+        text-align: center;
+        color: #4CAF50;
     }
     .feature-header {
-        font-size: 24px;
-        color: #333;
+        font-size: 28px;
         font-weight: bold;
+        color: #333;
+    }
+    .footer-text {
+        text-align: center;
+        color: #888;
+        font-size: 16px;
+    }
+    .description-text {
+        font-size: 18px;
+        color: #333;
+        line-height: 1.5;
+    }
+    .feature-button {
+        background-color: #4CAF50;
+        color: white;
+        padding: 15px;
+        border-radius: 5px;
+        font-size: 18px;
+        margin: 10px;
+    }
+    .feature-button:hover {
+        background-color: #45a049;
     }
     </style>
     """,
     unsafe_allow_html=True,
 )
 
-st.markdown('<div class="main-title">VisionAssist 👁️</div>', unsafe_allow_html=True)
-st.markdown('<div class="subtitle">AI for Scene Understanding, Text Extraction & Speech for the Visually Impaired 🗣️</div>', unsafe_allow_html=True)
+# Header Section
+st.markdown('<div class="subtitle">Empowering Visually Impaired with AI Assistance</div>', unsafe_allow_html=True)
 
-# Sidebar Features
+
+# Sidebar with Features and Instructions
 st.sidebar.image(
-    r"C:\Users\91771\Desktop\Innomatic\Internship\GEN AI and LLM\AI Power Assitant\LogoV.png",
-    width=250
+    r"Pics/vision_img.jpg",
+    width=200,
 )
 
-
-# Set up the sidebar for "ℹ️ About" section with concise description
-st.sidebar.title("ℹ️ About")
 st.sidebar.markdown(
     """
-    📌 **Features**
-    - 🔍 **Describe Scene**: Get AI insights about the image, including objects and suggestions.
-    - 📝 **Extract Text**: Extract visible text using OCR.
-    - 🔊 **Text-to-Speech**: Hear the extracted text aloud.
-
-    💡 **How it helps**:
-    Assists visually impaired users by providing scene descriptions, text extraction, and speech.
-
-    🤖 **Powered by**:
-    - **Google Gemini API** for scene understanding.
-    - **Tesseract OCR** for text extraction.
-    - **pyttsx3** for text-to-speech.
+    ### How This Works:
+    - 🚶‍♀️ **Describe Scene**: Get a detailed description of your surroundings.
+    - 🛑 **Detect Objects**: Identify obstacles or important items in your environment.
+    - 🔊 **Text-to-Speech**: Listen to AI descriptions and details about your surroundings.
+    - 🧑‍💼 **Personal Assistance**: Recognize text and objects for everyday help.
+    - 📝 **Suggested Tasks**: Get suggested tasks based on your current environment.
+    
+    ### Steps to Use:
+    1. Upload an image of your surroundings.
+    2. Choose a feature to start interacting with the AI.
+    3. Listen to the audio feedback or read the descriptions.
     """
 )
 
-# Text box below the sidebar description
-st.sidebar.text_area("📜 Instructions", "Upload an image to start. Choose a feature to interact with:  1 Describe the Scene, 2 Extract Text, 3 Listen to it")
+st.sidebar.success("Upload an image to start your experience!")
 
 
-# Functions for functionality
-def extract_text_from_image(image):
-    """Extracts text from the given image using OCR."""
-    return pytesseract.image_to_string(image)
-
-def text_to_speech(text):
-    """Converts the given text to speech."""
-    engine.say(text)
-    engine.runAndWait()
-
-def generate_scene_description(input_prompt, image_data):
-    """Generates a scene description using Google Generative AI."""
-    model = genai.GenerativeModel("gemini-1.5-pro")
-    response = model.generate_content([input_prompt, image_data[0]])
+# Functions
+def task(prompt, image_data):
+    """Generates tasks based on image using Google Generative AI."""
+    response = model.generate_content([prompt, image_data[0]])
     return response.text
 
-def input_image_setup(uploaded_file):
-    """Prepares the uploaded image for processing."""
-    if uploaded_file is not None:
-        bytes_data = uploaded_file.getvalue()
-        image_parts = [
+def assistance(prompt, data):
+    """Identify items or objects and text or labels from image using Google Generative AI."""
+    input_text = f"{prompt}\nExtracted text: {data}"
+    response = llm.generate(prompts=[input_text])
+    if response.generations and len(response.generations[0]) > 0:
+        data = response.generations[0][0].text 
+        return data
+
+def text_to_speech(text):
+    """Function to convert text to speech and save it as a file"""
+    audio_file = "output_1.mp3"
+    tts = gTTS(text=text, lang="en", slow=False)
+    tts.save(audio_file)
+    return audio_file
+
+def detect(prompt, image_data):
+    """Detects Objects and Obstacles from scene using Google Generative AI."""
+    response = model.generate_content([prompt, image_data[0]])
+    return response.text
+
+def describe(prompt, image_data):
+    """Generates a scene description using Google Generative AI."""
+    res = model.generate_content([prompt, image_data[0]])
+    return res.text
+
+def prepare_image_data(uploaded_file):
+    """Prepares uploaded image for API processing."""
+    if uploaded_file:
+        return [
             {
                 "mime_type": uploaded_file.type,
-                "data": bytes_data,
+                "data": uploaded_file.getvalue(),
             }
         ]
-        return image_parts
     else:
-        raise FileNotFoundError("No file uploaded.")
+        raise ValueError("No file uploaded.")
 
-# Upload Image Section
-st.markdown("<h3 class='feature-header'>📤 Upload an Image</h3>", unsafe_allow_html=True)
-uploaded_file = st.file_uploader("Drag and drop or browse an image (JPG, JPEG, PNG)", type=["jpg", "jpeg", "png"])
+
+# Main Section
+uploaded_file = st.file_uploader("Please upload an image of your surroundings (JPG, JPEG, PNG)", type=["jpg", "jpeg", "png"])
+
 if uploaded_file:
     image = Image.open(uploaded_file)
-    st.image(image, caption="Uploaded Image", use_column_width=True)
+    st.image(image, caption="Uploaded Image", use_container_width=True)
 
-# Buttons Section
-st.markdown("<h3 class='feature-header'>⚙️ Features</h3>", unsafe_allow_html=True)
-col1, col2, col3 = st.columns(3)
+    st.markdown("<h3 class='feature-header'>✨ AI Features to Enhance Your Experience</h3>", unsafe_allow_html=True)
+    col1, col2, col3, col4 = st.columns(4)
 
-scene_button = col1.button("🔍 Describe Scene")
-ocr_button = col2.button("📝 Extract Text")
-tts_button = col3.button("🔊 Text-to-Speech")
+    if col1.button("🖼️ Describe Scene", key="1"):
+        with st.spinner("Analyzing the scene..."):
+            try:
+                image_data = prepare_image_data(uploaded_file)
+                response = describe(
+                    "Describe the scene in the uploaded image in detail to guide the user with their surroundings.", image_data
+                )
+                text = f"Scene Description: {response}"
+                audio_file = text_to_speech(text)
+                with open(audio_file, "rb") as file:
+                    st.audio(file.read(), format="audio/mp3")
+                os.remove(audio_file)
+                st.markdown("<h3 class='feature-header'>🖼️ Scene Description</h3>", unsafe_allow_html=True)
+                st.write(response)
 
-# Input Prompt for Scene Understanding
-input_prompt = """
-You are an AI assistant helping visually impaired individuals by describing the scene in the image. Provide:
-1. List of items detected in the image with their purpose.
-2. Overall description of the image.
-3. Suggestions for actions or precautions for the visually impaired.
-"""
+            except Exception as e:
+                st.error(f"Error: {str(e)}")
 
-# Process user interactions
-if uploaded_file:
-    image_data = input_image_setup(uploaded_file)
 
-    if scene_button:
-        with st.spinner("Generating scene description..."):
-            response = generate_scene_description(input_prompt, image_data)
-            st.markdown("<h3 class='feature-header'>🔍 Scene Description</h3>", unsafe_allow_html=True)
-            st.write(response)
+    if col2.button("🛑 Detect Obstacles", key="2"):
+        with st.spinner("Detecting objects and obstacles..."):
+            try:
+                image_data = prepare_image_data(uploaded_file)
+                response = detect(
+                    "Identify obstacles or objects in the image and highlight them for better awareness and safety.", image_data
+                )
+                text = f"Obstacle Detection: {response}"
+                audio_file = text_to_speech(text)
+                with open(audio_file, "rb") as file:
+                    st.audio(file.read(), format="audio/mp3")
+                os.remove(audio_file)
+                st.markdown("<h3 class='feature-header'>🛑 Detect Obstacles</h3>", unsafe_allow_html=True)
+                st.write(response)
 
-    if ocr_button:
-        with st.spinner("Extracting text from the image..."):
-            text = extract_text_from_image(image)
-            st.markdown("<h3 class='feature-header'>📝 Extracted Text</h3>", unsafe_allow_html=True)
-            st.text_area("Extracted Text", text, height=150)
+            except Exception as e:
+                st.error(f"Error: {str(e)}")
 
-    if tts_button:
-        with st.spinner("Converting text to speech..."):
-            text = extract_text_from_image(image)
-            if text.strip():
-                text_to_speech(text)
-                st.success("✅ Text-to-Speech Conversion Completed!")
-            else:
-                st.warning("No text found to convert.")
+
+    if col3.button("🧑‍💼 Personalized Assistance", key="3"):
+        with st.spinner("Identifying objects and labels..."):
+            try:
+                image_data = prepare_image_data(uploaded_file)
+                data = describe(
+                    "Describe the scene in the uploaded image in detail, offering insights for better user understanding.", image_data
+                )
+                prompt = f"Identify objects, text, and offer personalized assistance based on the image."
+                response = assistance(prompt, data)
+                text = f"Personalized Assistance: {response}"
+                audio_file = text_to_speech(text)
+                with open(audio_file, "rb") as file:
+                    st.audio(file.read(), format="audio/mp3")
+                os.remove(audio_file)
+                st.markdown("<h3 class='feature-header'>🧑‍💼 Personalized Assistance</h3>", unsafe_allow_html=True)
+                st.write(response)
+
+            except Exception as e:
+                st.error(f"Error: {str(e)}")
+
+
+    if col4.button("📝 Suggested Tasks", key="4"):
+        with st.spinner("Analyzing tasks based on the scene..."):
+            try:
+                image_data = prepare_image_data(uploaded_file)
+                response = task(
+                    "Suggest relevant tasks based on the environment and location visible in the image.", image_data
+                )
+                text = f"Suggested Tasks: {response}"
+                audio_file = text_to_speech(text)
+                with open(audio_file, "rb") as file:
+                    st.audio(file.read(), format="audio/mp3")
+                os.remove(audio_file)
+                st.markdown("<h3 class='feature-header'>📝 Suggested Tasks</h3>", unsafe_allow_html=True)
+                st.write(response)
+
+            except Exception as e:
+                st.error(f"Error: {str(e)}")
+
 
 # Footer
 st.markdown(
     """
-    <hr>
-    <footer style="text-align:center;">
-        <p>Powered by <strong>Google Gemini API</strong> | ©️  MD Tahseen Equbal | Built with ❤️ using Streamlit</p>
-    </footer>
-    """,
-    unsafe_allow_html=True,
-)
-
-st.sidebar.markdown(
-    """
-    <hr>
-    <footer style="text-align:center;">
-        <p>Powered by <strong>Google Gemini API</strong> | ©️  MD Tahseen Equbal | Built with ❤️ using Streamlit</p>
+    <footer class="footer-text">
+        Empowering You with AI-Driven Assistance | Created with Care Using Streamlit
     </footer>
     """,
     unsafe_allow_html=True,
