@@ -5,9 +5,9 @@ from langchain_google_genai import GoogleGenerativeAI
 import os
 from gtts import gTTS
 
-
 st.balloons()
 
+st.magic()
 
 #title with white background
 
