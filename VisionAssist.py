@@ -5,65 +5,7 @@ from langchain_google_genai import GoogleGenerativeAI
 import os
 from gtts import gTTS
 
-
-st.markdown("""
-    <script>
-        // Falling leaves and flowers effect
-        const createFallingElement = (type) => {
-            let element = document.createElement('div');
-            element.style.position = 'absolute';
-            element.style.left = `${Math.random() * window.innerWidth}px`;
-            element.style.animation = `falling ${Math.random() * 5 + 3}s linear infinite, sway ${Math.random() * 4 + 3}s ease-in-out infinite`;
-            element.style.zIndex = '9999';
-            element.style.pointerEvents = 'none';
-            element.style.transition = 'all 0.5s ease-in-out';
-            
-            // Choose the image for falling leaves or flowers
-            if (type === 'leaf') {
-                element.style.backgroundImage = 'url("https://img.icons8.com/ios/452/leaf.png")';
-                element.style.width = '30px';
-                element.style.height = '30px';
-                element.style.backgroundSize = 'contain';
-            } else if (type === 'flower') {
-                element.style.backgroundImage = 'url("https://img.icons8.com/ios/452/flower.png")';
-                element.style.width = '25px';
-                element.style.height = '25px';
-                element.style.backgroundSize = 'contain';
-            }
-            document.body.appendChild(element);
-            
-            setTimeout(() => {
-                document.body.removeChild(element);
-            }, 7000); // Remove element after it finishes falling
-        };
-
-        // Generate falling elements (leaves and flowers)
-        setInterval(() => {
-            if (Math.random() < 0.5) {
-                createFallingElement('leaf');
-            } else {
-                createFallingElement('flower');
-            }
-        }, 500);
-
-        // CSS animations for falling and swaying effect
-        const style = document.createElement('style');
-        style.innerHTML = `
-            @keyframes falling {
-                0% { top: -50px; opacity: 1; }
-                100% { top: 100vh; opacity: 0; }
-            }
-
-            @keyframes sway {
-                0% { transform: translateX(0) rotate(0deg); }
-                50% { transform: translateX(50px) rotate(10deg); }
-                100% { transform: translateX(0) rotate(0deg); }
-            }
-        `;
-        document.head.appendChild(style);
-    </script>
-""", unsafe_allow_html=True)
-
+st.balloons()
 
 #title with white background
 
