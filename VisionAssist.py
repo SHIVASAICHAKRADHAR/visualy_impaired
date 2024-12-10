@@ -250,7 +250,7 @@ if uploaded_file:
 
     col1, col2, col3, col4 = st.columns(4)
 
-    # Button for Scene Description
+    # Box for Scene Description
     if col1.button("🖼️ **Illustrate Scene**", key="1", help="Describe the scene in detail and offer insights"):
         with st.spinner("Analyzing the scene..."):
             try:
@@ -268,7 +268,7 @@ if uploaded_file:
             except Exception as e:
                 st.error(f"Error: {str(e)}")
 
-    # Button for Scene Detection
+    # Box for Scene Detection
     if col2.button("🔍 **Detect Scene**", key="2", help="Detect objects and obstacles in the image"):
         with st.spinner("Detecting the scene in depth..."):
             try:
@@ -286,7 +286,7 @@ if uploaded_file:
             except Exception as e:
                 st.error(f"Error: {str(e)}")
 
-    # Button for Personalized Assistance
+    # Box for Personalized Assistance
     if col3.button("🧑🏻‍💼 **Personalized Assistance**", key="3", help="Identify items and text in the image"):
         with st.spinner("Working on the scene..."):
             try:
@@ -306,7 +306,7 @@ if uploaded_file:
             except Exception as e:
                 st.error(f"Error: {str(e)}")
 
-    # Button for Task Suggestions
+    # Box for Task Suggestions
     if col4.button("📝 **Task Suggestions**", key="4", help="Suggest tasks based on the image context"):
         with st.spinner("Analyzing tasks..."):
             try:
@@ -325,12 +325,42 @@ if uploaded_file:
                 st.error(f"Error: {str(e)}")
 
 
-# Footer with a user-friendly message
+
 st.markdown(
     """
+    <style>
+        footer {
+            background: linear-gradient(45deg, #ff6ec7, #ffc3a0, #ff9a8b, #ff6a00);
+            padding: 20px;
+            font-size: 24px;
+            color: white;
+            text-align: center;
+            border-radius: 15px;
+            animation: color-change 5s infinite alternate;
+        }
+
+        @keyframes color-change {
+            0% {
+                background: #ff6ec7;
+            }
+            25% {
+                background: #ffc3a0;
+            }
+            50% {
+                background: #ff9a8b;
+            }
+            75% {
+                background: #ff6a00;
+            }
+            100% {
+                background: #ff6ec7;
+            }
+        }
+    </style>
     <footer>
-        Made by <strong> Shiva Sai Chakradhar </strong> | Created for Accessibility | Built with 💝 for Visual Impaired 🧍🏻
+        Made by <strong>Shiva Sai Chakradhar</strong> | Created for Accessibility | Built with 💝 for Visual Impaired 🧍🏻
     </footer>
     """,
     unsafe_allow_html=True,
 )
+
