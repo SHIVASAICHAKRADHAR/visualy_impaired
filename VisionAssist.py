@@ -6,7 +6,27 @@ import os
 from gtts import gTTS
 
 
-st.balloons()
+st.markdown("""
+    <script src="https://cdn.jsdelivr.net/npm/fireworks-js/dist/index.min.js"></script>
+    <script>
+        window.onload = function() {
+            var fireworks = new Fireworks.default({
+                target: 'body',
+                hue: 120,
+                speed: 3,
+                density: 50,
+                friction: 0.99,
+                gravity: 1.0,
+                particles: 300,
+                trace: 3,
+                trail: 5,
+                explosion: 1
+            });
+            fireworks.start();
+        };
+    </script>
+""", unsafe_allow_html=True)
+#title with white background
 st.markdown("""
     <style>
         .title {
