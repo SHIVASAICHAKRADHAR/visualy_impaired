@@ -5,7 +5,81 @@ from langchain_google_genai import GoogleGenerativeAI
 import os
 from gtts import gTTS
 
-st.balloons()
+
+st.markdown("""
+    <style>
+        /* Ensure falling elements are fixed at the top and above the title */
+        #falling-elements {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 9999;
+        }
+
+        /* Keyframes for falling and swaying animation */
+        @keyframes falling {
+            0% { top: -50px; opacity: 1; }
+            100% { top: 100vh; opacity: 0; }
+        }
+
+        @keyframes sway {
+            0% { transform: translateX(0) rotate(0deg); }
+            50% { transform: translateX(50px) rotate(10deg); }
+            100% { transform: translateX(0) rotate(0deg); }
+        }
+
+        /* Styling for leaf and flower shapes */
+        .leaf {
+            width: 20px;
+            height: 20px;
+            background-color: green;
+            clip-path: ellipse(50% 30% at 50% 50%);
+            position: absolute;
+            animation: falling 5s linear infinite, sway 4s ease-in-out infinite;
+        }
+
+        .flower {
+            width: 25px;
+            height: 25px;
+            background-color: pink;
+            border-radius: 50%;
+            position: absolute;
+            animation: falling 6s linear infinite, sway 4s ease-in-out infinite;
+        }
+    </style>
+
+    <div id="falling-elements"></div>
+
+    <script>
+        // Falling leaves and flowers effect
+        const createFallingElement = (type) => {
+            let element = document.createElement('div');
+            element.classList.add(type);
+            element.style.left = `${Math.random() * window.innerWidth}px`;
+            element.style.animationDuration = `${Math.random() * 3 + 4}s`;  // Randomize falling speed
+
+            document.getElementById('falling-elements').appendChild(element);
+
+            // Remove element after falling animation completes
+            setTimeout(() => {
+                document.getElementById('falling-elements').removeChild(element);
+            }, 7000);
+        };
+
+        // Generate falling elements (leaves and flowers)
+        setInterval(() => {
+            if (Math.random() < 0.5) {
+                createFallingElement('leaf');
+            } else {
+                createFallingElement('flower');
+            }
+        }, 500); // New element every 500ms
+    </script>
+""", unsafe_allow_html=True)
+
 
 #title with white background
 
