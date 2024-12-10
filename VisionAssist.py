@@ -7,7 +7,63 @@ from gtts import gTTS
 
 st.balloons()
 
-st.magic()
+
+st.markdown("""
+    <style>
+        /* CSS to create a glowing sparkle effect */
+        @keyframes sparkle {
+            0% { opacity: 0; transform: scale(0.8); }
+            50% { opacity: 1; transform: scale(1.2); }
+            100% { opacity: 0; transform: scale(0.8); }
+        }
+
+        .sparkle {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background-color: white;
+            border-radius: 50%;
+            box-shadow: 0 0 5px 5px rgba(255, 255, 255, 0.7);
+            animation: sparkle 1s infinite;
+            opacity: 0;
+        }
+
+        /* Positioning the sparkles randomly across the screen */
+        .sparkle-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+    </style>
+
+    <div class="sparkle-container" id="sparkle-container"></div>
+
+    <script>
+        // Create sparkles at random positions on the screen
+        const createSparkle = () => {
+            const sparkle = document.createElement('div');
+            sparkle.classList.add('sparkle');
+
+            // Randomly position the sparkle element
+            sparkle.style.left = `${Math.random() * window.innerWidth}px`;
+            sparkle.style.top = `${Math.random() * window.innerHeight}px`;
+
+            document.getElementById('sparkle-container').appendChild(sparkle);
+
+            // Remove sparkle after animation is complete
+            setTimeout(() => {
+                sparkle.remove();
+            }, 1000); // Match with CSS animation duration
+        };
+
+        // Generate sparkles every 100ms
+        setInterval(createSparkle, 100);
+    </script>
+""", unsafe_allow_html=True)
+
 
 #title with white background
 
